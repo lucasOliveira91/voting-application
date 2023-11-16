@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "da8d1cf9-0056-41c1-9fc6-aae68dc3cba0",
+		"name": "API - Votação",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2771828"
+	},
+	"item": [
+		{
+			"name": "cria pauta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"lastCreatedSchedule\", jsonData.id);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Nova Pauta\",\r\n    \"description\": \"Taxa de encerramento de conta\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/pautas",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"pautas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "abrir sessão de votação",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/pautas/{{lastCreatedSchedule}}/open",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"pautas",
+						"{{lastCreatedSchedule}}",
+						"open"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "votar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"scheduleID\": \"{{lastCreatedSchedule}}\",\r\n    \"cpf\": \"08294431001\",\r\n    \"voteValue\": true\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/votes/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"votes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "resultado votação",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"agendaItemId\": 1,\r\n    \"memberId\": \"member-123\",\r\n    \"voteValue\": \"YES\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/votes/results/{{lastCreatedSchedule}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"votes",
+						"results",
+						"{{lastCreatedSchedule}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
