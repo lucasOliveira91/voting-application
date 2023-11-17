@@ -70,3 +70,7 @@ Consulta de resultado
 
 Produção de mensagem no Kafka
 ![img_4.png](img_4.png)
+
+# Doc da API
+
+![img_5.png](img_5.png)
