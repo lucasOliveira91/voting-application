@@ -23,7 +23,6 @@ public class Vote {
     @JoinColumn(name = "schedule_session_id")
     private ScheduleSession scheduleSession;
 
-    @Column(unique = true, nullable = false)
     private String cpf;
 
     private boolean voteValue;
